@@ -1,0 +1,14 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: yuki-agent-pdb
+  namespace: yuki
+  labels:
+    app.kubernetes.io/name: yuki
+    app.kubernetes.io/component: pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: yuki
+      app.kubernetes.io/component: api

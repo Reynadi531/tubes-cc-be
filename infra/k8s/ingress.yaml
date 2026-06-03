@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: yuki-agent
+  namespace: yuki
+  labels:
+    app.kubernetes.io/name: yuki
+    app.kubernetes.io/component: ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - yuki.local
+      secretName: yuki-tls
+  rules:
+    - host: yuki.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: yuki-agent
+                port:
+                  number: 8000
