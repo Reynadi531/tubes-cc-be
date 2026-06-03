@@ -10,3 +10,4 @@ wheels/
 .venv
 # Kubernetes secrets (DO NOT COMMIT)
 infra/k8s/secret.yaml
+.env
