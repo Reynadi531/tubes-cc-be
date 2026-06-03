@@ -67,7 +67,7 @@ kubectl logs -f deployment/yuki-agent -n yuki
 
 **Port-forward for local testing:**
 ```bash
-kubectl port-forward svc/yuki-agent 8000:8000 -n yuki &
+kubectl port-forward svc/yuki-agent 8000:8000 -n yuki
 
 curl -X POST http://localhost:8000/ask \
   -H "Content-Type: application/json" \
