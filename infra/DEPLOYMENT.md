@@ -8,28 +8,18 @@
 
 ## Quick Deploy
 
-### 1. Build Container Image
+### 1. Create namespace
 ```bash
-docker build -t yuki-agent:latest .
+kubectl create namespace yuki
 ```
 
 ### 2. Create Secret
-**DO NOT commit secrets to git.** Use one of these methods:
-
-**Method A: kubectl create (recommended)**
+**kubectl create**
 ```bash
 kubectl create secret generic yuki-secrets \
   --from-literal=GOOGLE_API_KEY=your-api-key \
   --from-literal=FRONTEND_URL=http://localhost:3001 \
   -n yuki
-```
-
-**Method B: Use template**
-```bash
-cp infra/k8s/secret.template.yaml infra/k8s/secret.yaml
-# Edit secret.yaml with your values, then:
-kubectl apply -f infra/k8s/secret.yaml
-# DO NOT commit secret.yaml to git
 ```
 
 ### 3. Create TLS Secret (for HTTPS)
@@ -48,7 +38,6 @@ kubectl create secret tls yuki-tls \
 ```bash
 # Apply in order
 kubectl apply -f infra/k8s/namespace.yaml
-kubectl apply -f infra/k8s/secret.yaml  # or use Method A above
 kubectl apply -f infra/k8s/deployment.yaml
 kubectl apply -f infra/k8s/service.yaml
 kubectl apply -f infra/k8s/ingress.yaml
